@@ -1,7 +1,7 @@
-package com.baeldung.springbootreact;
+package com.gcit.springbootreact;
 
-import com.baeldung.springbootreact.domain.Client;
-import com.baeldung.springbootreact.repository.ClientRepository;
+import com.gcit.springbootreact.domain.Client;
+import com.gcit.springbootreact.repository.ClientRepository;
 import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

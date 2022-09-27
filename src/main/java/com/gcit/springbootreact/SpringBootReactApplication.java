@@ -1,4 +1,4 @@
-package com.baeldung.springbootreact;
+package com.gcit.springbootreact;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

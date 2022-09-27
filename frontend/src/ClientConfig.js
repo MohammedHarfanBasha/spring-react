@@ -12,9 +12,22 @@ class ClientList extends Component {
     }
 
     componentDidMount() {
-        fetch('/clients')
+        fetch('/clients/config')
             .then(response => response.json())
             .then(data => this.setState({clients: data}));
+    }
+
+    async remove(id) {
+        await fetch(`/clients/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(() => {
+            let updatedClients = [...this.state.clients].filter(i => i.id !== id);
+            this.setState({clients: updatedClients});
+        });
     }
 
     render() {
@@ -23,9 +36,11 @@ class ClientList extends Component {
         const clientList = clients.map(client => {
             return <tr key={client.id}>
                 <td style={{whiteSpace: 'nowrap'}}>{client.name}</td>
+                <td>{client.email}</td>
                 <td>
                     <ButtonGroup>
-                        <Button size="sm" color="primary" tag={Link} to={"/clients/config"}>Config</Button>
+                        <Button size="sm" color="primary" tag={Link} to={"/clients/" + client.id}>Editttttt</Button>
+                        <Button size="sm" color="danger" onClick={() => this.remove(client.id)}>Delete</Button>
                     </ButtonGroup>
                 </td>
             </tr>
@@ -35,11 +50,15 @@ class ClientList extends Component {
             <div>
                 <AppNavbar/>
                 <Container fluid>
-                    <h3>Clients</h3>
+                    <div className="float-right">
+                        <Button color="success" tag={Link} to="/clients/config/new">Add Config</Button>
+                    </div>
+                    <h3>Configurations</h3>
                     <Table className="mt-4">
                         <thead>
                         <tr>
-                            <th width="30%">Name</th>
+                            <th width="30%">Key</th>
+                            <th width="30%">Value</th>
                             <th width="40%">Actions</th>
                         </tr>
                         </thead>
