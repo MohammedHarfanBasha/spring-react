@@ -1,5 +1,7 @@
 package com.baeldung.springbootreact.domain;
 
+import com.gcit.springbootreact.domain.Client;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,9 +16,9 @@ public class ClientConfig {
 
     private String valueParameters;
 
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "lmiId" ,referencedColumnName = "id",nullable = false)
-//    private Client client;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "lmi_id" , nullable = false)
+    private Client client;
 
     public ClientConfig(){}
 
@@ -50,11 +52,11 @@ public class ClientConfig {
         this.valueParameters = valueParameters;
     }
 
-//    public Client getClient(){
-//        return client;
-//    }
-//
-//    public void setClient(Client client){
-//        this.client = client;
-//    }
+    public Client getClient(){
+        return client;
+    }
+
+    public void setClient(){
+        this.client = client;
+    }
 }

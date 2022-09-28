@@ -32,7 +32,7 @@ public class ClientConfigController {
     @PostMapping("/")
     public ResponseEntity createClientConfig(@RequestBody ClientConfig clientConfig) throws URISyntaxException {
         ClientConfig savedClientConfig = clientConfigRepository.save(clientConfig);
-        return ResponseEntity.created(new URI("/clientConfig/" + savedClientConfig.getId())).body(savedClientConfig.getKeyParameters());
+        return ResponseEntity.created(new URI("/clientConfig/" + savedClientConfig.getId())).body(savedClientConfig);
     }
 
     @PutMapping("/{cid}")

@@ -1,9 +1,9 @@
 package com.gcit.springbootreact.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.baeldung.springbootreact.domain.ClientConfig;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "client")
@@ -15,6 +15,9 @@ public class Client {
 
     private String name;
     private String email;
+
+    @OneToMany(mappedBy = "client" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<ClientConfig> clientConfig;
 
     public Client() {
     }
@@ -52,5 +55,13 @@ public class Client {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<ClientConfig> getClientConfig(){
+        return  clientConfig;
+    }
+
+    public void setClientConfig(){
+        this.clientConfig = clientConfig;
     }
 }
