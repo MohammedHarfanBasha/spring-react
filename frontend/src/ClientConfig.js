@@ -3,18 +3,18 @@ import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 import AppNavbar from './AppNavbar';
 import { Link } from 'react-router-dom';
 
-class ClientList extends Component {
+class ClientConfig extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {clients: []};
+        this.state = {configs: []};
         this.remove = this.remove.bind(this);
     }
 
     componentDidMount() {
         fetch('/clients/config')
             .then(response => response.json())
-            .then(data => this.setState({clients: data}));
+            .then(data => this.setState({configs: data}));
     }
 
     async remove(id) {
@@ -25,22 +25,22 @@ class ClientList extends Component {
                 'Content-Type': 'application/json'
             }
         }).then(() => {
-            let updatedClients = [...this.state.clients].filter(i => i.id !== id);
-            this.setState({clients: updatedClients});
+            let updatedClients = [...this.state.configs].filter(i => i.id !== id);
+            this.setState({configs: updatedClients});
         });
     }
 
     render() {
-        const {clients} = this.state;
+        const {configs} = this.state;
 
-        const clientList = clients.map(client => {
-            return <tr key={client.id}>
-                <td style={{whiteSpace: 'nowrap'}}>{client.name}</td>
-                <td>{client.email}</td>
+        const clientList = configs.map(config => {
+            return <tr key={config.id}>
+                <td style={{whiteSpace: 'nowrap'}}>{config.keyParams}</td>
+                <td>{config.value}</td>
                 <td>
                     <ButtonGroup>
-                        <Button size="sm" color="primary" tag={Link} to={"/clients/" + client.id}>Editttttt</Button>
-                        <Button size="sm" color="danger" onClick={() => this.remove(client.id)}>Delete</Button>
+                        <Button size="sm" color="primary" tag={Link} to={"/clients/" + config.id}>Edit</Button>
+                        <Button size="sm" color="danger" onClick={() => this.remove(config.id)}>Delete</Button>
                     </ButtonGroup>
                 </td>
             </tr>
@@ -72,4 +72,4 @@ class ClientList extends Component {
     }
 }
 
-export default ClientList;
+export default ClientConfig;

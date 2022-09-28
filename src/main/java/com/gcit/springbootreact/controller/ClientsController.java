@@ -39,7 +39,6 @@ public class ClientsController {
     public ResponseEntity updateClient(@PathVariable Long id, @RequestBody Client client) {
         Client currentClient = clientRepository.findById(id).orElseThrow(RuntimeException::new);
         currentClient.setName(client.getName());
-        currentClient.setEmail(client.getEmail());
         currentClient = clientRepository.save(client);
 
         return ResponseEntity.ok(currentClient);

@@ -8,7 +8,7 @@ class ClientList extends Component {
     constructor(props) {
         super(props);
         this.state = {clients: []};
-        this.remove = this.remove.bind(this);
+        // this.remove = this.remove.bind(this);
     }
 
     componentDidMount() {
@@ -25,7 +25,7 @@ class ClientList extends Component {
                 <td style={{whiteSpace: 'nowrap'}}>{client.name}</td>
                 <td>
                     <ButtonGroup>
-                        <Button size="sm" color="primary" tag={Link} to={"/clients/config"}>Config</Button>
+                        <Button size="sm" color="primary" tag={Link} to={"/configs"}>Config</Button>
                     </ButtonGroup>
                 </td>
             </tr>

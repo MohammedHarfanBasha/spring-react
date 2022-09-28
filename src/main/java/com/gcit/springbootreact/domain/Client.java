@@ -14,20 +14,17 @@ public class Client {
     private Long id;
 
     private String name;
-    private String email;
 
     public Client() {
     }
 
-    public Client(String name, String email) {
+    public Client(String name) {
         this.name = name;
-        this.email = email;
     }
 
-    public Client(Long id, String name, String email) {
+    public Client(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.email = email;
     }
 
     public Long getId() {
@@ -46,11 +43,4 @@ public class Client {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }
