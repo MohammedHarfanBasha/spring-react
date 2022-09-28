@@ -2,6 +2,7 @@ package com.baeldung.springbootreact.controller;
 
 
 import com.baeldung.springbootreact.domain.ClientConfig;
+import com.baeldung.springbootreact.dto.ClientConfigDto;
 import com.baeldung.springbootreact.repository.ClientConfigRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,12 @@ public class ClientConfigController {
     public ClientConfig getById(@PathVariable Long cid) {
         return clientConfigRepository.findById(cid).orElseThrow(RuntimeException::new);
     }
+
+    @GetMapping("/getByClientId/{lmiId}")
+    public List<ClientConfigDto> getByClientId(@PathVariable Long lmiId){
+        return clientConfigRepository.findAllByClientId(lmiId);
+    }
+
 
     @PostMapping("/")
     public ResponseEntity createClientConfig(@RequestBody ClientConfig clientConfig) throws URISyntaxException {
