@@ -1,9 +1,12 @@
-package com.gcit.springbootreact.domain;
+package com.gcit.springbootreact.model;
+
+import lombok.Data;
 
 import javax.persistence.*;
 
+@Data
 @Entity
-@Table(name = "clientConfig")
+@Table(name = "client_config")
 public class ClientConfig {
 
     @Id

@@ -2,7 +2,7 @@ package com.gcit.springbootreact.controller;
 
 
 
-import com.gcit.springbootreact.domain.ClientConfig;
+import com.gcit.springbootreact.model.ClientConfig;
 import com.gcit.springbootreact.repository.ClientConfigRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
