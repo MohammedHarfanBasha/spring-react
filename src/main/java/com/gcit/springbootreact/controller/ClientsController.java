@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/clients")
+@CrossOrigin(origins = "http://localhost:8081")
 public class ClientsController {
 
     private final ClientRepository clientRepository;
@@ -19,6 +20,7 @@ public class ClientsController {
         this.clientRepository = clientRepository;
     }
 
+    @CrossOrigin(origins = "http://localhost:8081")
     @GetMapping
     public List<Client> getClients() {
         return clientRepository.findAll();

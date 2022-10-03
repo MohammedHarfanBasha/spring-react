@@ -2,6 +2,7 @@ package com.gcit.springbootreact.controller;
 
 
 
+import com.gcit.springbootreact.dto.ClientConfigDto;
 import com.gcit.springbootreact.model.ClientConfig;
 import com.gcit.springbootreact.repository.ClientConfigRepository;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/clients/config")
+@CrossOrigin(origins = "http://localhost:8081")
 public class ClientConfigController {
 
     private final ClientConfigRepository clientConfigRepository;
@@ -52,4 +54,8 @@ public class ClientConfigController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/getByClientId/{fk_client_id}")
+    public List<ClientConfigDto> getByClientId(@PathVariable Long fk_client_id){
+        return clientConfigRepository.findAllByClientId(fk_client_id);
+    }
 }

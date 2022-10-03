@@ -1,25 +1,29 @@
 package com.gcit.springbootreact.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
 
-@Data
 @Entity
 @Table(name = "client_config")
 public class ClientConfig {
 
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
+    @Column(name = "key_params")
     private String keyParams;
 
+    @Column(name = "value")
     private String value;
 
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "lmiId" ,referencedColumnName = "id",nullable = false)
-//    private Client client;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_client_id", referencedColumnName = "id")
+    @JsonIgnore
+    private Client client;
 
     public ClientConfig(){}
 
@@ -53,11 +57,11 @@ public class ClientConfig {
         this.value = value;
     }
 
-//    public Client getClient(){
-//        return client;
-//    }
-//
-//    public void setClient(Client client){
-//        this.client = client;
-//    }
+    public Client getClient(){
+        return client;
+    }
+
+    public void setClient(Client client){
+        this.client = client;
+    }
 }
