@@ -5,8 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "client_config")
+@Entity(name = "client_config")
 public class ClientConfig {
 
     @Id
@@ -14,24 +13,18 @@ public class ClientConfig {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "key_params")
-    private String keyParams;
+    @Column(name = "key")
+    private String key;
 
     @Column(name = "value")
     private String value;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "fk_client_id", referencedColumnName = "id")
-    @JsonIgnore
+//    @JsonIgnore
     private Client client;
 
     public ClientConfig(){}
-
-    public ClientConfig(Long id, String keyParams,String value){
-        this.id = id;
-        this.keyParams = keyParams;
-        this.value = value;
-    }
 
     public Long getId(){
         return id;
@@ -41,12 +34,12 @@ public class ClientConfig {
         this.id = id;
     }
 
-    public String getkeyParams(){
-        return keyParams;
+    public String getKey() {
+        return key;
     }
 
-    public void setkeyParams(String keyParams){
-        this.keyParams = keyParams;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getvalue(){

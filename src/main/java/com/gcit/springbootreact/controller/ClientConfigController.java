@@ -1,7 +1,5 @@
 package com.gcit.springbootreact.controller;
 
-
-
 import com.gcit.springbootreact.dto.ClientConfigDto;
 import com.gcit.springbootreact.model.ClientConfig;
 import com.gcit.springbootreact.repository.ClientConfigRepository;
@@ -12,7 +10,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/clients/config")
+@RequestMapping("/config")
 @CrossOrigin(origins = "http://localhost:8081")
 public class ClientConfigController {
 
@@ -35,15 +33,15 @@ public class ClientConfigController {
     @PostMapping
     public ResponseEntity createClientConfig(@RequestBody ClientConfig clientConfig) throws URISyntaxException {
         ClientConfig savedClientConfig = clientConfigRepository.save(clientConfig);
-        return ResponseEntity.created(new URI("/clientConfig/" + savedClientConfig.getId())).body(savedClientConfig.getkeyParams());
+        return ResponseEntity.created(new URI("/clientConfig/" + savedClientConfig.getId())).body(savedClientConfig.getKey());
     }
 
     @PutMapping("/{id}")
     public ResponseEntity updateClientConfig(@PathVariable Long id, @RequestBody ClientConfig clientConfig) {
         ClientConfig currentClientConfig = clientConfigRepository.findById(id).orElseThrow(RuntimeException::new);
-        currentClientConfig.setkeyParams(clientConfig.getkeyParams());
+        currentClientConfig.setKey(clientConfig.getKey());
         currentClientConfig.setvalue(clientConfig.getvalue());
-        currentClientConfig = clientConfigRepository.save(clientConfig);
+        currentClientConfig = clientConfigRepository.save(currentClientConfig);
 
         return ResponseEntity.ok(currentClientConfig);
     }
@@ -54,8 +52,8 @@ public class ClientConfigController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/getByClientId/{fk_client_id}")
-    public List<ClientConfigDto> getByClientId(@PathVariable Long fk_client_id){
-        return clientConfigRepository.findAllByClientId(fk_client_id);
+    @GetMapping("/getByClientId/{client}")
+    public List<ClientConfigDto> getByClientId(@PathVariable Long client){
+        return clientConfigRepository.findAllByClientId(client);
     }
 }

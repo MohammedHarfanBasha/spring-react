@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "client")
 public class Client {
 
     @Id
@@ -17,9 +16,6 @@ public class Client {
 
     @Column(name = "name")
     private String name;
-
-    @OneToMany(mappedBy = "client")
-    private Set<ClientConfig> clientConfig;
 
     public Client() {
     }
@@ -47,13 +43,5 @@ public class Client {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<ClientConfig> getClientConfig() {
-        return clientConfig;
-    }
-
-    public void setClientConfig(Set<ClientConfig> clientConfig) {
-        this.clientConfig = clientConfig;
     }
 }
