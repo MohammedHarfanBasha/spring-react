@@ -1,7 +1,6 @@
 package com.gcit.springbootreact.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
@@ -11,12 +10,15 @@ public class ClientConfig {
     @Id
     @GeneratedValue
     @Column(name = "id")
+    @JsonProperty("id")
     private Long id;
 
-    @Column(name = "key")
+    @Column(name = "key_params")
+    @JsonProperty("key")
     private String key;
 
-    @Column(name = "value")
+    @Column(name = "value_params")
+    @JsonProperty("value")
     private String value;
 
     @ManyToOne

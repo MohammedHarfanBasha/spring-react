@@ -1,5 +1,6 @@
 package com.gcit.springbootreact.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,9 +13,11 @@ public class Client {
     @Id
     @GeneratedValue
     @Column(name = "id")
+    @JsonProperty("id")
     private Long id;
 
     @Column(name = "name")
+    @JsonProperty("name")
     private String name;
 
     public Client() {

@@ -3,6 +3,7 @@ package com.gcit.springbootreact.controller;
 import com.gcit.springbootreact.dto.ClientConfigDto;
 import com.gcit.springbootreact.model.ClientConfig;
 import com.gcit.springbootreact.repository.ClientConfigRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.net.URI;
@@ -37,13 +38,17 @@ public class ClientConfigController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateClientConfig(@PathVariable Long id, @RequestBody ClientConfig clientConfig) {
+    public ResponseEntity<ClientConfig> updateClientConfig(@PathVariable(value = "id") Long id, @RequestBody ClientConfig clientConfig) {
         ClientConfig currentClientConfig = clientConfigRepository.findById(id).orElseThrow(RuntimeException::new);
-        currentClientConfig.setKey(clientConfig.getKey());
-        currentClientConfig.setvalue(clientConfig.getvalue());
-        currentClientConfig = clientConfigRepository.save(currentClientConfig);
-
-        return ResponseEntity.ok(currentClientConfig);
+        currentClientConfig.setId(id);
+        if(clientConfig.getKey() != null) {
+            currentClientConfig.setKey(clientConfig.getKey());
+        }
+        if(clientConfig.getvalue() != null) {
+            currentClientConfig.setvalue(clientConfig.getvalue());
+        }
+        ClientConfig detached = clientConfigRepository.save(currentClientConfig);
+        return ResponseEntity.ok(detached);
     }
 
     @DeleteMapping("/{id}")
@@ -53,7 +58,7 @@ public class ClientConfigController {
     }
 
     @GetMapping("/getByClientId/{client}")
-    public List<ClientConfigDto> getByClientId(@PathVariable Long client){
+    public List<ClientConfig> getByClientId(@PathVariable Long client){
         return clientConfigRepository.findAllByClientId(client);
     }
 }
