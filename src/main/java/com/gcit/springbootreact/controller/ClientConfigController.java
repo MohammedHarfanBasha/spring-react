@@ -28,19 +28,20 @@ public class ClientConfigController {
     }
 
     @GetMapping("/{id}")
-    public ClientConfig getById(@PathVariable Long id) {
-        return clientConfigRepository.findById(id).orElseThrow(RuntimeException::new);
+    public ClientConfig getById(@PathVariable Long cid) {
+        return clientConfigRepository.findById(cid).orElseThrow(RuntimeException::new);
     }
 
     @PostMapping
     public ResponseEntity createClientConfig(@RequestBody ClientConfig clientConfig) throws URISyntaxException {
         ClientConfig savedClientConfig = clientConfigRepository.save(clientConfig);
-        return ResponseEntity.created(new URI("/clientConfig/" + savedClientConfig.getId())).body(savedClientConfig.getkeyParams());
+//        return ResponseEntity.created(new URI("/clientConfig/" + savedClientConfig.getId())).body(savedClientConfig.getkeyParams());
+        return ResponseEntity.created(new URI("/clients/Config/" + savedClientConfig.getId())).body(savedClientConfig);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateClientConfig(@PathVariable Long id, @RequestBody ClientConfig clientConfig) {
-        ClientConfig currentClientConfig = clientConfigRepository.findById(id).orElseThrow(RuntimeException::new);
+    public ResponseEntity updateClientConfig(@PathVariable Long cid, @RequestBody ClientConfig clientConfig) {
+        ClientConfig currentClientConfig = clientConfigRepository.findById(cid).orElseThrow(RuntimeException::new);
         currentClientConfig.setkeyParams(clientConfig.getkeyParams());
         currentClientConfig.setvalue(clientConfig.getvalue());
         currentClientConfig = clientConfigRepository.save(clientConfig);
@@ -49,8 +50,8 @@ public class ClientConfigController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteClientConfig(@PathVariable Long id) {
-        clientConfigRepository.deleteById(id);
+    public ResponseEntity deleteClientConfig(@PathVariable Long cid) {
+        clientConfigRepository.deleteById(cid);
         return ResponseEntity.ok().build();
     }
 

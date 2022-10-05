@@ -12,7 +12,7 @@ public class ClientConfig {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private Long id;
+    private Long cid;
 
     @Column(name = "key_params")
     private String keyParams;
@@ -20,25 +20,25 @@ public class ClientConfig {
     @Column(name = "value")
     private String value;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_client_id", referencedColumnName = "id")
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "fk_client_id",  nullable = false)
+//    @JsonIgnore
     private Client client;
 
     public ClientConfig(){}
 
-    public ClientConfig(Long id, String keyParams,String value){
-        this.id = id;
+    public ClientConfig(Long cid, String keyParams,String value){
+        this.cid = cid;
         this.keyParams = keyParams;
         this.value = value;
     }
 
     public Long getId(){
-        return id;
+        return cid;
     }
 
-    public void setId(Long id){
-        this.id = id;
+    public void setId(Long cid){
+        this.cid = cid;
     }
 
     public String getkeyParams(){

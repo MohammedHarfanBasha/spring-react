@@ -18,7 +18,7 @@ public class Client {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<ClientConfig> clientConfig;
 
     public Client() {
