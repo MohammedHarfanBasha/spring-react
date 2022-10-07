@@ -17,9 +17,11 @@ import java.util.Optional;
 public class ClientConfigController {
 
     private final ClientConfigRepository clientConfigRepository;
+    private final ClientRepository clientRepository;
 
-    public ClientConfigController(ClientConfigRepository clientConfigRepository) {
+    public ClientConfigController(ClientConfigRepository clientConfigRepository, ClientRepository clientRepository) {
         this.clientConfigRepository = clientConfigRepository;
+        this.clientRepository = clientRepository;
     }
 
     @GetMapping
