@@ -1,14 +1,15 @@
 package com.gcit.springbootreact.controller;
 
-import com.gcit.springbootreact.dto.ClientConfigDto;
+import com.gcit.springbootreact.model.Client;
 import com.gcit.springbootreact.model.ClientConfig;
 import com.gcit.springbootreact.repository.ClientConfigRepository;
-import org.springframework.http.HttpStatus;
+import com.gcit.springbootreact.repository.ClientRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/config")
