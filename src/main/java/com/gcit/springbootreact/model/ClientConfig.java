@@ -8,7 +8,7 @@ import javax.persistence.*;
 public class ClientConfig {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     @JsonProperty("id")
     private Long id;
