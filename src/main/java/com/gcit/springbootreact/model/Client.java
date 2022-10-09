@@ -1,24 +1,55 @@
 package com.gcit.springbootreact.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDateTime;
 
-@Entity
+@Entity(name = "lmi")
 public class Client {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     @JsonProperty("id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "lmi_name")
     @JsonProperty("name")
     private String name;
+
+    @Column(name = "system_oid")
+    @JsonProperty("systemOid")
+    private String systemOid;
+
+    @Column(name = "lmi_validation")
+    @JsonProperty("validation")
+    private String validation;
+
+    @Column(name = "status")
+    @JsonProperty("status")
+    private Integer status;
+
+    @Column(name = "created_on")
+    @JsonProperty("createdOn")
+    @CreationTimestamp
+    private LocalDateTime createdOn;
+
+    @Column(name = "created_by")
+    @JsonProperty("createdBy")
+    private String createdBy;
+
+    @Column(name = "modified_on")
+    @JsonProperty("modifiedOn")
+    @UpdateTimestamp
+    private LocalDateTime modifiedOn;
+
+    @Column(name = "modified_by")
+    @JsonProperty("modifiedBy")
+    private String modifiedBy;
 
     public Client() {
     }
@@ -46,5 +77,61 @@ public class Client {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSystemOid() {
+        return systemOid;
+    }
+
+    public void setSystemOid(String systemOid) {
+        this.systemOid = systemOid;
+    }
+
+    public String getValidation() {
+        return validation;
+    }
+
+    public void setValidation(String validation) {
+        this.validation = validation;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(LocalDateTime createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDateTime getModifiedOn() {
+        return modifiedOn;
+    }
+
+    public void setModifiedOn(LocalDateTime modifiedOn) {
+        this.modifiedOn = modifiedOn;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
     }
 }
