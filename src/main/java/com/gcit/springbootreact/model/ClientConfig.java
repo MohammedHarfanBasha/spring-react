@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
-@Entity(name = "client_config")
+@Entity(name = "lmi_config")
 public class ClientConfig {
 
     @Id

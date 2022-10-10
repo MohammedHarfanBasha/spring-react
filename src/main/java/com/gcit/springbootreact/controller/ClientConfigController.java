@@ -36,9 +36,9 @@ public class ClientConfigController {
 
     @PostMapping
     public ResponseEntity createClientConfig(@RequestBody ClientConfig clientConfig) throws URISyntaxException {
+        List<Client> client = clientRepository.findByName(clientConfig.getClient().getName());
+        clientConfig.setClient(client.get(0));
         ClientConfig savedClientConfig = clientConfigRepository.save(clientConfig);
-        Optional<Client> client = clientRepository.findById(clientConfig.getClient().getId());
-        savedClientConfig.setClient(client.get());
         return ResponseEntity.created(new URI("/config" + savedClientConfig.getId())).body(savedClientConfig);
     }
 
