@@ -13,4 +13,5 @@ import java.util.List;
 public interface ClientConfigRepository extends JpaRepository<ClientConfig, Long> {
     @Query(nativeQuery = true, value ="SELECT lmi_config.id,lmi_config.key_params, lmi_config.value_params,lmi_config.fk_client_id FROM lmi INNER JOIN lmi_config ON lmi.id=lmi_config.fk_client_id WHERE lmi_config.fk_client_id = :client")
     List<ClientConfig> findAllByClientId(@PathParam("client") Long client);
+
 }

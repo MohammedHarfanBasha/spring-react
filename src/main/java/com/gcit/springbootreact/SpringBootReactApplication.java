@@ -11,7 +11,7 @@ import java.sql.SQLException;
 @SpringBootApplication
 @EntityScan(basePackages = "com.gcit.springbootreact.model")
 @EnableJpaRepositories(basePackages = {"com.gcit.springbootreact.repository"})
-@ComponentScan(basePackages = {"com.gcit.springbootreact.repository", "com.gcit.springbootreact.controller"})
+@ComponentScan(basePackages = {"com.gcit.springbootreact.repository", "com.gcit.springbootreact.controller","com.gcit.springbootreact.service"})
 public class SpringBootReactApplication {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
