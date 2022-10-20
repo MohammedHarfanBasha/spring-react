@@ -1,7 +1,9 @@
 package com.gcit.springbootreact.controller;
 
+import com.gcit.springbootreact.Service.LoginService;
 import com.gcit.springbootreact.model.Login;
 import com.gcit.springbootreact.repository.LoginRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,41 +14,40 @@ import java.util.List;
 @RestController
 @RequestMapping("/login")
 public class LoginController {
+    @Autowired
+    private LoginService loginService;
 
-    private final LoginRepository loginRepository;
-
-    public LoginController(LoginRepository loginRepository) {
-        this.loginRepository = loginRepository;
-    }
-
-    @GetMapping("/{lid}")
-    public Login getById(@PathVariable Long lid) {
-        return loginRepository.findById(lid).orElseThrow(RuntimeException::new);
+    @GetMapping("/{id}")
+    public Login getById(@PathVariable Long id) {
+        return loginService.findById(id).orElseThrow(RuntimeException::new);
     }
 
     @GetMapping("/")
     public List<Login> getUsers() {
-        return loginRepository.findAll();
+        return loginService.getUsers();
     }
 
     @PostMapping("/")
     public ResponseEntity addUsers(@RequestBody Login login) throws URISyntaxException {
-        Login savedUsers = loginRepository.save(login);
+        Login savedUsers = loginService.saveUser(login);
         return ResponseEntity.created(new URI("/login/" + savedUsers.getId())).body(savedUsers);
     }
 
     @PutMapping("/{lid}")
-    public ResponseEntity updateUser(@PathVariable Long lid, @RequestBody Login login) {
-        Login currentUser = loginRepository.findById(lid).orElseThrow(RuntimeException::new);
-        currentUser.setUserName(login.getUserName());
-        currentUser.setPassword(login.getPassword());
-        currentUser = loginRepository.save(login);
-        return ResponseEntity.ok(currentUser);
+    public Login updateUser(@PathVariable Long id, @RequestBody Login login) {
+
+        return loginService.updateUser(id, login);
     }
 
-    @DeleteMapping("/{lid}")
-    public ResponseEntity deleteUser(@PathVariable Long lid) {
-        loginRepository.deleteById(lid);
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteUser(@PathVariable Long id) {
+        loginService.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping
+    public ResponseEntity deleteUsers() {
+        loginService.deleteUsers();
         return ResponseEntity.ok().build();
     }
 }

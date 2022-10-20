@@ -54,13 +54,25 @@ public class Client {
     public Client() {
     }
 
-    public Client(String name) {
-        this.name = name;
-    }
+//    public Client(String name) {
+//        this.name = name;
+//    }
+//
+//    public Client(Long id, String name) {
+//        this.id = id;
+//        this.name = name;
+//    }
 
-    public Client(Long id, String name) {
+    public Client(Long id, String name, String systemOid, String validation, Integer status, LocalDateTime createdOn, String createdBy, LocalDateTime modifiedOn, String modifiedBy) {
         this.id = id;
         this.name = name;
+        this.systemOid = systemOid;
+        this.validation = validation;
+        this.status = status;
+        this.createdOn = createdOn;
+        this.createdBy = createdBy;
+        this.modifiedOn = modifiedOn;
+        this.modifiedBy = modifiedBy;
     }
 
     public Long getId() {

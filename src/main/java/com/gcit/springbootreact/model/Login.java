@@ -15,7 +15,7 @@ public class Login {
     private long id;
 
     @Column(name = "user_name")
-    @JsonProperty("user_name")
+    @JsonProperty("userName")
     private String userName;
 
     @Column(name = "password")

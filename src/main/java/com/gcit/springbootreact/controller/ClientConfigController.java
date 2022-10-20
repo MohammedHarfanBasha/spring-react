@@ -1,69 +1,63 @@
 package com.gcit.springbootreact.controller;
 
-import com.gcit.springbootreact.model.Client;
+import com.gcit.springbootreact.Service.ClientConfigService;
+import com.gcit.springbootreact.Service.ClientService;
 import com.gcit.springbootreact.model.ClientConfig;
-import com.gcit.springbootreact.repository.ClientConfigRepository;
-import com.gcit.springbootreact.repository.ClientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
-import java.net.URI;
+
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
+@Component
 @RequestMapping("/config")
 @CrossOrigin(origins = "http://localhost:8081")
 public class ClientConfigController {
+    @Autowired
+    private ClientConfigService clientConfigService;
+    @Autowired
+    private ClientService clientService;
 
-    private final ClientConfigRepository clientConfigRepository;
-    private final ClientRepository clientRepository;
-
-    public ClientConfigController(ClientConfigRepository clientConfigRepository, ClientRepository clientRepository) {
-        this.clientConfigRepository = clientConfigRepository;
-        this.clientRepository = clientRepository;
-    }
 
     @GetMapping
     public List<ClientConfig> getClientConfigs() {
-        return clientConfigRepository.findAll();
+        return clientConfigService.getClientConfigs();
     }
 
     @GetMapping("/{id}")
     public ClientConfig getById(@PathVariable Long id) {
-        return clientConfigRepository.findById(id).orElseThrow(RuntimeException::new);
+        return clientConfigService.findById(id).orElseThrow(RuntimeException::new);
     }
 
     @PostMapping
-    public ResponseEntity createClientConfig(@RequestBody ClientConfig clientConfig) throws URISyntaxException {
-        List<Client> client = clientRepository.findByName(clientConfig.getClient().getName());
-        clientConfig.setClient(client.get(0));
-        ClientConfig savedClientConfig = clientConfigRepository.save(clientConfig);
-        return ResponseEntity.created(new URI("/config" + savedClientConfig.getId())).body(savedClientConfig);
+    public ClientConfig createClientConfig(@RequestBody ClientConfig clientConfig) throws URISyntaxException {
+
+        return clientConfigService.createClientConfig(clientConfig);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ClientConfig> updateClientConfig(@PathVariable(value = "id") Long id, @RequestBody ClientConfig clientConfig) {
-        ClientConfig currentClientConfig = clientConfigRepository.findById(id).orElseThrow(RuntimeException::new);
-        currentClientConfig.setId(id);
-        if(clientConfig.getKey() != null) {
-            currentClientConfig.setKey(clientConfig.getKey());
-        }
-        if(clientConfig.getvalue() != null) {
-            currentClientConfig.setvalue(clientConfig.getvalue());
-        }
-        ClientConfig detached = clientConfigRepository.save(currentClientConfig);
-        return ResponseEntity.ok(detached);
+    public ClientConfig updateClientConfig(@PathVariable(value = "id") Long id, @RequestBody ClientConfig clientConfig) {
+
+        return clientConfigService.updateClientConfig(id, clientConfig);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteClientConfig(@PathVariable Long id) {
-        clientConfigRepository.deleteById(id);
+    public ResponseEntity deleteById(@PathVariable Long id) {
+        clientConfigService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/getByClientId/{client}")
-    public List<ClientConfig> getByClientId(@PathVariable Long client){
-        return clientConfigRepository.findAllByClientId(client);
+    public List<ClientConfig> getByClientId(@PathVariable Long id) {
+        return clientConfigService.findAllByClientId(id);
+    }
+
+    @DeleteMapping
+    public ResponseEntity deleteClientConfig() {
+        clientConfigService.deleteClientConfig();
+        return ResponseEntity.ok().build();
     }
 }
